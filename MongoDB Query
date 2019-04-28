@@ -1,0 +1,33 @@
+db.restaurants.find(
+{ "cuisine": "American",
+ "address.coord" : { $nearShpere : [ -73.9667, 40.78 ], $maxDistance: 0.10 } }
+)
+.limit(10);
+
+
+mongo admin -u root -p C43XeBn8PTMf
+
+use cis3801
+
+db.restaurants.createIndex( { "address.coord" : "2dSphere" } )
+
+
+db.restaurants.getIndexes()
+
+db.restaurants.dropIndexes()
+
+
+var arrayOfFieldNames = [];
+
+var items = db.restaurants.find();
+
+while(items.hasNext()) {
+  var item = items.next();
+  for(var index in item) {
+    arrayOfFieldNames[index] = index;
+   }
+}
+
+for (var index in arrayOfFieldNames) {
+  print(index);
+}
